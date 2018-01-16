@@ -1,6 +1,20 @@
-import { Schema, arrayOf, normalize } from 'normalizr'
+import { schema, arrayOf, normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
+import promise from 'promise'
 import 'isomorphic-fetch'
+
+function getNextPageUrl(response) {
+  const link = response.headers.get('link')
+  if (!link) {
+    return null
+  }
+  const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
+  if (!nextLink) {
+    return null
+  }
+
+  return nextLink.split(';')[0].slice(1, -1)
+}
 
 const API_ROOT = 'https://znv8ery8od.execute-api.us-east-1.amazonaws.com/Beta/'
 
@@ -63,28 +77,28 @@ function callApi(endpoint, schema) {
     )
 }
 
-const numberSchema = new Schema('numbers', {
-  idAttribute: 'login';
+const numberSchema = new schema.Entity('numbers', {
+  idAttribute: 'login',
 })
 
-const accountSchema = new Schema('accounts', {
-  idAttribute: 'name';
+const accountSchema = new schema.Entity('accounts', {
+  idAttribute: 'name',
 })
 
-const marketSchema = new Schema('markets', {
-  idAttribute: 'id';
+const marketSchema = new schema.Entity('markets', {
+  idAttribute: 'id',
 })
 
-const addressSchema = new Schema('addresses', {
-  idAttribute: 'name';
+const addressSchema = new schema.Entity('addresses', {
+  idAttribute: 'name',
 })
 
 addressSchema.define({
-  owner: accountSchema;
+  owner: accountSchema,
 })
 
 numberSchema.define({
-  owner: accountSchema;
+  owner: accountSchema,
 })
 
 export const fetchAddresses = body => callApi('addresses', addressSchema, body);

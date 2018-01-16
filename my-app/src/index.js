@@ -1,18 +1,24 @@
 import registerServiceWorker from './registerServiceWorker';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+
+// app specific imports
+import { history } from './services'
+import routes from './routes'
+import Root from './containers/Root'
+import configureStore from './store/configureStore'
+import rootSaga from './sagas'
 import resultsApp from './reducers/index';
 import './index.css';
 import App from './App';
 
-let store = createStore(resultsApp);
+let store = configureStore(resultsApp);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Root
+    store={store}
+    history={history}
+    routes={routes}/>,
   document.getElementById('root')
 );
 registerServiceWorker();
