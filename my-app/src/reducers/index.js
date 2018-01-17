@@ -45,6 +45,8 @@ function router(state = { pathname: '/' }, action) {
 
 const initialState = {
   availabilityFilter: SHOW_ALL,
+  errorMessage: "",
+  router: {},
   addresses: [],
   results: [
     {

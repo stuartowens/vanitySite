@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Entry from './Entry.js';
 import AddResult from '../containers/AddResult';
 import '../App.css';

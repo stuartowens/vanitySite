@@ -24,6 +24,7 @@ let AddResult = ({ dispatch }) => {
         />
         <button type="submit">Add Result</button>
       </form>
+      <h1>I'm HERE!!!!!!!!!!!!!!!!!!!!!!</h1>
     </div>
   );
 };

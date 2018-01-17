@@ -7,12 +7,23 @@ import { history } from './services'
 import routes from './routes'
 import Root from './containers/Root'
 import configureStore from './store/configureStore'
-import rootSaga from './sagas'
-import resultsApp from './reducers/index';
 import './index.css';
-import App from './App';
+import { AvailabilityFilters } from './actions';
+const { SHOW_ALL } = AvailabilityFilters;
 
-let store = configureStore(resultsApp);
+const initialState = {
+  availabilityFilter: SHOW_ALL,
+  errorMessage: "",
+  router: {},
+  results: [
+    {
+      text: '1800-BailBond',
+      available: true,
+    },
+  ],
+};
+
+let store = configureStore(initialState);
 
 ReactDOM.render(
   <Root

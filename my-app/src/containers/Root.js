@@ -1,8 +1,13 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
-import { Router } from 'react-router'
+import { Router, Route } from 'react-router'
 import RouterContext from 'react-router/lib'
 import DevTools from './DevTools'
+import App from '../App';
+// import AddressPage from './containers/AddressPage';
+// import AddResult from './AddResult';
+import Entry from '../components/Entry'
 
 export default class Root extends Component {
   render() {
@@ -11,10 +16,14 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <div>
-          { type === 'server'
-            ? <RouterContext {...renderProps} />
-            : <Router history={history} routes={routes} />
-          }
+
+          <Router history={history}>
+            <Route path="/" component={App}>
+              {/* <Route path="/:address"
+                     component={AddressPage} /> */}
+              <Route path="/result" component={Entry} />
+            </Route>
+          </Router>
           <DevTools />
         </div>
       </Provider>

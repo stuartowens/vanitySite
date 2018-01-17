@@ -101,4 +101,4 @@ numberSchema.define({
   owner: accountSchema,
 })
 
-export const fetchAddresses = body => callApi('addresses', addressSchema, body);
+export const fetchAddresses = body => postApi('addresses', addressSchema, body);

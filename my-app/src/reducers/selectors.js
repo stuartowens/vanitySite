@@ -1,1 +1,1 @@
-export const getAddresses = (state, name) => state.entities.repos[name];
+export const getAddresses = (state, name) => state.entities.addreses[name];

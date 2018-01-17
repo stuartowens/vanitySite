@@ -9,17 +9,14 @@ import resultsApp from '../reducers'
 
 export default function configureStore(initialState) {
   const sagaMiddleware = createSagaMiddleware()
-
   const store = createStore(
     resultsApp,
     initialState,
     compose(
-      applyMiddleware(
-        sagaMiddleware,
-        createLogger()
-      ),
-      DevTools.instrument()
-    )
+      applyMiddleware(sagaMiddleware),
+      createLogger,
+    ),
+    DevTools.instrument()
   )
 
   if (module.hot) {
