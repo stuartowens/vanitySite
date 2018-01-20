@@ -4,73 +4,67 @@
 // import AddResult from './containers/AddResult';
 // import './App.css';
 
-
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { navigate, updateRouterState, resetErrorMessage } from './actions'
-import Explore from './components/Explore'
-
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { navigate, updateRouterState, resetErrorMessage } from './actions';
+import Explore from './components/Explore';
 
 class App extends Component {
   constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleDismissClick = this.handleDismissClick.bind(this)
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleDismissClick = this.handleDismissClick.bind(this);
   }
 
   componentWillMount() {
     this.props.updateRouterState({
       pathname: this.props.location.pathname,
-      params  : this.props.params
-    })
+      params: this.props.params,
+    });
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.location.pathname !== nextProps.location.pathname)
+    if (this.props.location.pathname !== nextProps.location.pathname)
       this.props.updateRouterState({
         pathname: nextProps.location.pathname,
-        params  : nextProps.params
-      })
+        params: nextProps.params,
+      });
   }
 
   handleDismissClick(e) {
-    this.props.resetErrorMessage()
-    e.preventDefault()
+    this.props.resetErrorMessage();
+    e.preventDefault();
   }
 
   handleChange(nextValue) {
-    this.props.navigate(`/${nextValue}`)
+    this.props.navigate(`/${nextValue}`);
   }
 
   renderErrorMessage() {
-    const { errorMessage } = this.props
+    const { errorMessage } = this.props;
     if (!errorMessage) {
-      return null
+      return null;
     }
 
     return (
       <p style={{ backgroundColor: '#e99', padding: 10 }}>
-        <b>{errorMessage}</b>
-        {' '}
-        (<a href="#"
-            onClick={this.handleDismissClick}>
+        <b>{errorMessage}</b> (<a href="#" onClick={this.handleDismissClick}>
           Dismiss
         </a>)
       </p>
-    )
+    );
   }
 
   render() {
-    const { children, inputValue } = this.props
+    const { children, inputValue } = this.props;
     return (
       <div>
-        <Explore value={inputValue}
-                 onChange={this.handleChange} />
+        <Explore value={inputValue} onChange={this.handleChange} />
         <hr />
         {this.renderErrorMessage()}
         {children}
       </div>
-    )
+    );
   }
 }
 
@@ -82,21 +76,21 @@ App.propTypes = {
   updateRouterState: PropTypes.func.isRequired,
   resetErrorMessage: PropTypes.func.isRequired,
   // Injected by React Router
-  children: PropTypes.node
-}
+  children: PropTypes.node,
+};
 
 function mapStateToProps(state) {
   return {
     errorMessage: state.errorMessage,
-    inputValue: state.router.pathname.substring(1)
-  }
+    inputValue: state.router.pathname,
+  };
 }
 
 export default connect(mapStateToProps, {
   navigate,
   updateRouterState,
-  resetErrorMessage
-})(App)
+  resetErrorMessage,
+})(App);
 // const App = () => (
 //   <div className="App">
 //     <header className="App-header">
